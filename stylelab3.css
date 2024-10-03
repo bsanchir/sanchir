@@ -2,33 +2,31 @@ body {
     font-family: Arial, sans-serif;
     background-color: #e0e0e0;
     color: #000;
-    margin: 0;
     padding: 20px;
 }
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
+    background-color: #333333;
+    color: #ffffff;
+    padding: 10px;
     text-align: center;
 }
 nav {
-    margin: 20px 0;
+    margin: 20px;
 }
 nav a {
-    margin: 0 15px;
-    text-decoration: none;
+    margin:15px;
     color: #0066cc;
 }
 section {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
     margin-bottom: 20px;
 }
 footer {
     text-align: center;
     font-size: 15px;
-    color: #666;
+    color: #666666;
     margin-top: 20px;
 }
 .style1 {
