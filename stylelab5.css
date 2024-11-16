@@ -38,7 +38,18 @@ body{
     margin-top: 0%;
 }
 .side {
+    margin: 10px;
     float:right;
+    height: 30px;
+    width: 25%;
+    background-color: #f61067;
+    text-align: center;
+}
+.sd1 {
+    margin-top: 20px;
+    background-color: #9090A5;
+    color: white;
+    height: 30px;
 }
 .main{
     width: 70%;
