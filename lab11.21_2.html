@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head> <title>lab Nov.21</title> </head>
+    <body>
+        <h1>Laboratory</h1>
+        <p> B.Sanchir </p>
+        <script>
+            var time = 30 ;
+            function timer(time) {
+                if (time > 0) {
+                console.log(time)
+                time--; 
+                }
+                else {
+                    clearInterval(timer);
+                    console.log("Time's up !!!");
+                }
+            }
+            setInterval(time() , 1000)
+        </script>
+    </body>
+</html>

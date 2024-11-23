@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head> <title>lab Nov.21</title> </head>
+    <body>
+        <h1>Laboratory</h1>
+        <p> B.Sanchir </p>
+        <script>
+            var x;
+            x = window.prompt("utga av :") ;
+            x = parseInt(x) ;
+            function factorial(a) {
+                var a;
+                if ( a == 0) 
+                return 1 ;
+            return a * factorial(a - 1) ;
+            }
+            var y;
+            y=factorial(x)
+            document.writeln("factorial = " ,y);
+        </script>
+    </body>
+</html>
