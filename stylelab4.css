@@ -22,14 +22,21 @@ header {
 header h1 {
     float: right ;
 }
+aside {
+    padding: 20px;
+    width: 15%;
+    background-color: antiquewhite;
+    margin: 5px;
+    float:left;
+}
 .main {
     padding: 20px;
-    background: #fff;
-    width: 80%;
-    background-color: antiquewhite;
-    margin: auto;
+    background-color:antiquewhite;
+    width:78%;
+    float:left;
+    margin:5px;
 }
-.main h2 {
+aside h2 {
     text-align: center;
     color: #333;
 }
