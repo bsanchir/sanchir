@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image:  url(./Murun.jpg);
+    background-image:  url(./backimg.jpg);
     background-size: cover;
 }
 .head {
@@ -11,11 +11,9 @@ body {
     padding: 20px;
 }
 header {
-    background: #ADD8E6;
     color: #fff;
     padding-top: 20px;
     min-height: 70px;
-    border-bottom: #77aaff 3px solid;
     width: 100%;
     margin: auto;
 }
@@ -25,16 +23,16 @@ header h1 {
 aside {
     padding: 20px;
     width: 15%;
-    background-color: antiquewhite;
+    background-image: url(./Ra.png);
     margin: 5px;
     float:left;
 }
 .main {
     padding: 20px;
-    background-color:antiquewhite;
     width:78%;
     float:left;
     margin:5px;
+    background-image: url(./Ra.png);
 }
 aside h2 {
     text-align: center;
@@ -42,6 +40,10 @@ aside h2 {
 }
 section {
     margin-bottom: 20px;
+}
+section:hover {
+    font-size: large;
+
 }
 section h2 {
     border-bottom: 2px solid #77aaff;
