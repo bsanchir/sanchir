@@ -1,0 +1,90 @@
+.head1 {
+    background-color: #1b1b6c;
+    height: 25px;
+    width: 100%;
+    padding: 0;
+    color: white;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+}
+.head2 {
+    background-color: #13124f;
+    width: 100%;
+    color: white;
+    margin-top: 0%;
+    padding: 10px;
+    text-align:initial;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.more {
+    background-color: #f61067;
+    height: 20px;
+    width: 120px;
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+.hd1 {
+    font-size: 50px;
+    margin-bottom: 0%;
+}
+.p1 {
+    margin-top: 0%;
+}
+.side {
+    margin: 10px;
+    float:right;
+    height: 30px;
+    width: 25%;
+    background-color: #f61067;
+    text-align: center;
+}
+.sd1 {
+    margin-top: 20px;
+    background-color: #9090A5;
+    color: white;
+    height: 30px;
+}
+.sd2 {
+    margin-top: 0;
+    padding: 5px;
+    background-color: #13124f;
+    color: white;
+}
+.send {
+    margin: 10px;
+    background-color: #f61067;
+    color: white;
+    height:20px ;
+}
+.main{
+    width: 70%;
+    padding: 20px;
+}
+.Arhd{
+    border-bottom: #9090A5 2px solid;
+    padding-bottom: 20px;
+    font-size: 30px;
+}
+.alert{
+    margin: 5px;
+    padding: 10px;
+    width: 100%;
+    background-color: #9090A5;
+    color: white;
+}
+.ftr{
+    background-color: #1b1b6c;
+    color: white;
+    padding: 3px;
+}
+.frm1 {
+    width: 100%;
+    padding: 10px;
+}
