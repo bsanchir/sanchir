@@ -41,10 +41,6 @@ aside h2 {
 section {
     margin-bottom: 20px;
 }
-section:hover {
-    font-size: large;
-
-}
 section h2 {
     border-bottom: 2px solid #77aaff;
     padding-bottom: 10px;
