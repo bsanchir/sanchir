@@ -60,24 +60,6 @@
     float: left;
   }
   
-  #login-box {
-    float: right;
-    padding-right: 10px;
-  }
-  
-  #login-box input {
-    padding: 3px;
-    margin-right: 5px;
-    font-size: 12px;
-  }
-  
-  #login-box button {
-    background-color: #ddd;
-    border: 1px solid #999;
-    font-size: 12px;
-    padding: 3px 8px;
-  }
-  
   #main-content {
     background-color: white;
     margin-top: 20px;
