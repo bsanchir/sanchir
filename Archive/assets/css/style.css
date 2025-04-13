@@ -1,1 +1,2 @@
 @charset "UTF-8";
+.content-wrapper,footer{flex-shrink:0}.content-wrapper{flex-grow:1}figure.overlay img{opacity:1;width:100%;max-width:100%;vertical-align:top;position:relative}
