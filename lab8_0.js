@@ -14,9 +14,9 @@ for (let i = str.length - 1; i >= 0; i--) {
     rev += str[i];
   } 
 if ( str == rev) {
-    document.write("sum is palindrome")
+    document.writeln("sum is palindrome")
 }
 else { 
-    document.write("sum is not palindrome")
+    document.writeln("sum is not palindrome")
 }
-document.write("\nresult: " + sum) ;
+document.writeln("\nresult: " + sum) ;
