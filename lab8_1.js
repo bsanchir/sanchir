@@ -11,4 +11,4 @@ while (sw == sr) {
     sr=sr+rabbit ;
     time++ ;
 }
-document.writeln("wolf will capture rabit in :" , sum) ;
+document.writeln("wolf will capture rabit in :" , sw) ;
