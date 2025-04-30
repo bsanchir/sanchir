@@ -6,6 +6,31 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script>
+        function findWinningFirstMove(n) {
+    for (let k = 1; k <= n; k++) {
+        let remaining = n - k;
+        let petyaTurn = false; 
+        let currentPlayerTakes;
+
+        while (remaining > 0) {
+            currentPlayerTakes = Math.min(k + 1, remaining);
+            remaining -= currentPlayerTakes;
+            petyaTurn = !petyaTurn;
+        }
+
+        if (petyaTurn) {
+            return k;
+        }
+    }
+    return 0;
+    }
+
+    let n;
+    n = window.prompt("Number of coins on the table:");
+    let result = findWinningFirstMove(n);
+    document.writeln("Petya should take ", result, " coins first to guarantee a win.");
+
+    </script>
 </body>
 </html>
