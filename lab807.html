@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #Mor {
+            display: none;
+            position: fixed;
+            right: 0;
+            top: 0;
+            background-color: green;
+            height: 100px;
+            width: 100px;
+        }
+        #Eve {
+            display: none;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            background-color: red;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "Mor"></div>
+    <div id = "Eve"></div>
+    <script>
+        var d = new Date() ;
+        d.getHours();
+        if ( d < 12 ) 
+            document.getElementById("Mor").style.display = "block";
+        else ( d >= 12 ) 
+            document.getElementById("Eve").style.display = "block"; 
+    </script>
+</body>
+</html>
