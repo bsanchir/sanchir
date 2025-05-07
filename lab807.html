@@ -29,9 +29,8 @@
     <div id = "Mor"></div>
     <div id = "Eve"></div>
     <script>
-        var d = new Date() ;
-        d.getHours();
-        if (d >= 9 && d < 18) {
+        var d = new Date().getHours() ;
+        if (d < 12) {
             document.getElementById("Mor").style.display = "block";
         }
         else {
