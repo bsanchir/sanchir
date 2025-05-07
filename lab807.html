@@ -31,10 +31,12 @@
     <script>
         var d = new Date() ;
         d.getHours();
-        if ( d < 12 ) 
+        if (d >= 9 && d < 18) {
             document.getElementById("Mor").style.display = "block";
-        else ( d >= 12 ) 
-            document.getElementById("Eve").style.display = "block"; 
+        }
+        else {
+        document.getElementById("Eve").style.display = "block"; 
+        }
     </script>
 </body>
 </html>
