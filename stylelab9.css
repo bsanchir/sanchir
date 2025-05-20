@@ -1,3 +1,37 @@
 #calculator {
-    
+position: relative;
+left: 100px;
+margin-top: 20px;
+}
+#display {
+position: relative;
+left: 100px;
+margin-top: 20px;
+border-width: 3px;
+border-color: black;
+}
+#fromCurrency {
+position: relative;
+left: 100px;
+margin-top: 20px;
+}
+#toCurrency {
+position: relative;
+left: 100px;
+margin-top: 20px;
+}
+#result {
+position: relative;
+left: 100px;
+margin-top: 20px;
+}
+#convert {
+position: relative;
+left: 100px;
+margin-top: 20px;
+}
+button{
+padding: 5px;
+background-color: blue;
+color: white;
 }

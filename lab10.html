@@ -165,6 +165,23 @@
       }
     }
 
+        function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function setCookie(name, value, days = 365) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+    }
+
+    let playerName = getCookie("hangmanPlayer");
+    if (!playerName) {
+    playerName = prompt("Enter your name for the high score table:");
+    if (playerName) setCookie("hangmanPlayer", playerName);
+    }
+
     function initGame() {
       selectedWord = words[Math.floor(Math.random() * words.length)];
       guessedLetters = [];
@@ -265,22 +282,23 @@
     }
 
     function saveHighScore(score) {
-      let scores = JSON.parse(localStorage.getItem("hangmanHighScores") || "[]");
-      scores.push(score);
-      scores.sort((a, b) => b - a);
-      scores = scores.slice(0, 10);
-      localStorage.setItem("hangmanHighScores", JSON.stringify(scores));
-      displayHighScores();
+    if (!playerName) return;
+    let scores = JSON.parse(localStorage.getItem("hangmanHighScores") || "[]");
+    scores.push({ name: playerName, score });
+    scores.sort((a, b) => b.score - a.score);
+    scores = scores.slice(0, 10);
+    localStorage.setItem("hangmanHighScores", JSON.stringify(scores));
+    displayHighScores();
     }
 
     function displayHighScores() {
-      let scores = JSON.parse(localStorage.getItem("hangmanHighScores") || "[]");
-      highScoreList.innerHTML = "";
-      scores.forEach((score, index) => {
+    let scores = JSON.parse(localStorage.getItem("hangmanHighScores") || "[]");
+    highScoreList.innerHTML = "";
+    scores.forEach((entry, index) => {
         const li = document.createElement("li");
-        li.textContent = `#${index + 1}: ${score} seconds`;
+        li.textContent = `#${index + 1}: ${entry.name} – ${entry.score} sec`;
         highScoreList.appendChild(li);
-      });
+    });
     }
 
     resetBtn.onclick = initGame;

@@ -7,7 +7,7 @@
 </head>
 <body>
     <script>
-        function findWinningFirstMove(n) {
+        function Solution(n) {
     for (let k = 1; k <= n; k++) {
         let remaining = n - k;
         let petyaTurn = false; 
@@ -28,7 +28,7 @@
 
     let n;
     n = window.prompt("Number of coins on the table:");
-    let result = findWinningFirstMove(n);
+    let result = Solution(n);
     document.writeln("Petya should take ", result, " coins first to guarantee a win.");
 
     </script>
