@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hangman Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    #canvas {
+      border: 1px solid #333;
+      background: white;
+      margin: 20px auto;
+      display: block;
+    }
+    #word {
+      font-size: 2rem;
+      letter-spacing: 10px;
+      margin: 20px 0;
+    }
+    #letters {
+      margin-top: 20px;
+    }
+    .letter {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 1.2rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .letter:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    #hangman, #timer {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+    #reset {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #scoreboard {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      display: inline-block;
+      border-radius: 5px;
+    }
+    #highScores {
+      margin-top: 20px;
+      text-align: left;
+      display: inline-block;
+      background: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #highScores h3 {
+      margin: 0 0 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hangman Game</h1>
+  <canvas id="canvas" width="200" height="250"></canvas>
+  <div id="word">_ _ _ _ _</div>
+  <div id="hangman">Wrong guesses: 0/6</div>
+  <div id="timer">⏱️ Time left: <span id="time">60</span> seconds</div>
+  <div id="letters"></div>
+  <div id="message"></div>
+  <div id="scoreboard">
+    🟢 Wins: <span id="wins">0</span> |
+    🔴 Losses: <span id="losses">0</span>
+  </div><br>
+  <button id="reset">Reset Game</button>
+  <div id="highScores">
+    <h3>🏆 High Scores (Top 10)</h3>
+    <ol id="highScoreList"></ol>
+  </div>
+
+  <script>
+    const words = ["javascript", "hangman", "programming", "developer", "function"];
+    let selectedWord = "";
+    let guessedLetters = [];
+    let wrongGuesses = 0;
+    const maxWrong = 6;
+    let wins = 0;
+    let losses = 0;
+    let timer = null;
+    let timeLeft = 60;
+
+    const wordDiv = document.getElementById("word");
+    const lettersDiv = document.getElementById("letters");
+    const hangmanDiv = document.getElementById("hangman");
+    const messageDiv = document.getElementById("message");
+    const resetBtn = document.getElementById("reset");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const winsSpan = document.getElementById("wins");
+    const lossesSpan = document.getElementById("losses");
+    const timeSpan = document.getElementById("time");
+    const highScoreList = document.getElementById("highScoreList");
+
+    function drawHangman() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#000";
+
+      // Base
+      ctx.beginPath();
+      ctx.moveTo(10, 230);
+      ctx.lineTo(190, 230);
+      ctx.stroke();
+
+      // Pole
+      ctx.beginPath();
+      ctx.moveTo(50, 230);
+      ctx.lineTo(50, 20);
+      ctx.lineTo(140, 20);
+      ctx.lineTo(140, 40);
+      ctx.stroke();
+
+      if (wrongGuesses > 0) {
+        ctx.beginPath(); ctx.arc(140, 60, 20, 0, Math.PI * 2); ctx.stroke(); // Head
+      }
+      if (wrongGuesses > 1) {
+        ctx.beginPath(); ctx.moveTo(140, 80); ctx.lineTo(140, 140); ctx.stroke(); // Body
+      }
+      if (wrongGuesses > 2) {
+        ctx.beginPath(); ctx.moveTo(140, 100); ctx.lineTo(110, 120); ctx.stroke(); // Left Arm
+      }
+      if (wrongGuesses > 3) {
+        ctx.beginPath(); ctx.moveTo(140, 100); ctx.lineTo(170, 120); ctx.stroke(); // Right Arm
+      }
+      if (wrongGuesses > 4) {
+        ctx.beginPath(); ctx.moveTo(140, 140); ctx.lineTo(110, 180); ctx.stroke(); // Left Leg
+      }
+      if (wrongGuesses > 5) {
+        ctx.beginPath(); ctx.moveTo(140, 140); ctx.lineTo(170, 180); ctx.stroke(); // Right Leg
+      }
+    }
+
+    function initGame() {
+      selectedWord = words[Math.floor(Math.random() * words.length)];
+      guessedLetters = [];
+      wrongGuesses = 0;
+      timeLeft = 60;
+      updateWordDisplay();
+      updateHangman();
+      updateTimerDisplay();
+      messageDiv.textContent = "";
+      lettersDiv.innerHTML = "";
+      createLetterButtons();
+      drawHangman();
+      clearInterval(timer);
+      timer = setInterval(countdown, 1000);
+    }
+
+    function createLetterButtons() {
+      for (let i = 65; i <= 90; i++) {
+        const letter = String.fromCharCode(i);
+        const btn = document.createElement("button");
+        btn.classList.add("letter");
+        btn.textContent = letter;
+        btn.onclick = () => handleGuess(letter.toLowerCase(), btn);
+        lettersDiv.appendChild(btn);
+      }
+    }
+
+    function handleGuess(letter, button) {
+      button.disabled = true;
+      if (selectedWord.includes(letter)) {
+        guessedLetters.push(letter);
+        updateWordDisplay();
+        checkWin();
+      } else {
+        wrongGuesses++;
+        updateHangman();
+        drawHangman();
+        checkLoss();
+      }
+    }
+
+    function updateWordDisplay() {
+      wordDiv.textContent = selectedWord
+        .split("")
+        .map(letter => guessedLetters.includes(letter) ? letter : "_")
+        .join(" ");
+    }
+
+    function updateHangman() {
+      hangmanDiv.textContent = `Wrong guesses: ${wrongGuesses}/${maxWrong}`;
+    }
+
+    function updateTimerDisplay() {
+      timeSpan.textContent = timeLeft;
+    }
+
+    function countdown() {
+      timeLeft--;
+      updateTimerDisplay();
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        losses++;
+        updateScoreboard();
+        messageDiv.textContent = `⏰ Time's up! You lost! The word was "${selectedWord}"`;
+        disableAllButtons();
+      }
+    }
+
+    function checkWin() {
+      const wordComplete = selectedWord.split("").every(l => guessedLetters.includes(l));
+      if (wordComplete) {
+        clearInterval(timer);
+        messageDiv.textContent = "🎉 You Win!";
+        wins++;
+        updateScoreboard();
+        saveHighScore(timeLeft);
+        disableAllButtons();
+      }
+    }
+
+    function checkLoss() {
+      if (wrongGuesses >= maxWrong) {
+        clearInterval(timer);
+        messageDiv.textContent = `💀 You Lost! The word was "${selectedWord}"`;
+        losses++;
+        updateScoreboard();
+        disableAllButtons();
+      }
+    }
+
+    function disableAllButtons() {
+      document.querySelectorAll(".letter").forEach(btn => btn.disabled = true);
+    }
+
+    function updateScoreboard() {
+      winsSpan.textContent = wins;
+      lossesSpan.textContent = losses;
+    }
+
+    function saveHighScore(score) {
+      let scores = JSON.parse(localStorage.getItem("hangmanHighScores") || "[]");
+      scores.push(score);
+      scores.sort((a, b) => b - a);
+      scores = scores.slice(0, 10);
+      localStorage.setItem("hangmanHighScores", JSON.stringify(scores));
+      displayHighScores();
+    }
+
+    function displayHighScores() {
+      let scores = JSON.parse(localStorage.getItem("hangmanHighScores") || "[]");
+      highScoreList.innerHTML = "";
+      scores.forEach((score, index) => {
+        const li = document.createElement("li");
+        li.textContent = `#${index + 1}: ${score} seconds`;
+        highScoreList.appendChild(li);
+      });
+    }
+
+    resetBtn.onclick = initGame;
+
+    displayHighScores();
+    initGame();
+  </script>
+</body>
+</html>

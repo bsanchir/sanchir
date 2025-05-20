@@ -4,34 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./stylelab9.css">
 </head>
 <body>
-    <div>
-        <label>Your amount of money to covert </label> 
-        <input type="number">
-        <label>Choose a currency</label>
-        <select>
-            <option>USD</option>
-            <option>EUR</option>
-            <option>POUND</option>
-            <option>WON</option>
-            <option>YEN</option>
-            <option>YAN</option>
-            <option>MNT</option>
-        </select>
-        <label>Choose a currency to convert</label>
-        <select>
-            <option>USD</option>
-            <option>EUR</option>
-            <option>POUND</option>
-            <option>WON</option>
-            <option>YEN</option>
-            <option>YAN</option>
-            <option>MNT</option>
-        </select>
+<div>
+  <select id="fromCurrency"></select>
+  <select id="toCurrency"></select>
     </div>
+
+    <div id="display">0</div>
+
+    <div id="calculator">
+    <button onclick="appendNumber('1')">1</button>
+    <button onclick="appendNumber('2')">2</button>
+    <button onclick="appendNumber('3')">3</button>
+    <button onclick="appendNumber('4')">4</button>
+    <button onclick="appendNumber('5')">5</button>
+    <button onclick="appendNumber('6')">6</button>
+    <button onclick="appendNumber('7')">7</button>
+    <button onclick="appendNumber('8')">8</button>
+    <button onclick="appendNumber('9')">9</button>
+    <button onclick="appendNumber('0')">0</button>
+    <button onclick="clearDisplay()">C</button>
+    </div>
+
+    <button onclick="convertCurrency()">Convert</button>
+    <div id="result"></div>
     <script>
-    
+        const exchangeArray = [
+    { name: 'USD', value: 1 },
+    { name: 'EUR', value: 0.88 },
+    { name: 'POUND', value: 0.75 },
+    { name: 'WON', value: 1433 },
+    { name: 'YEN', value: 142 },
+    { name: 'YAN', value: 7.31 },
+    { name: 'MNT', value: 3537 }
+    ];
+
+    const display = document.getElementById("display");
+    let currentInput = "";
+
+    function populateDropdowns() {
+    const from = document.getElementById("fromCurrency");
+    const to = document.getElementById("toCurrency");
+
+    exchangeArray.forEach(currency => {
+        const option1 = new Option(currency.name, currency.name);
+        const option2 = new Option(currency.name, currency.name);
+        from.appendChild(option1);
+        to.appendChild(option2);
+    });
+    }
+
+    function appendNumber(num) {
+    currentInput += num;
+    display.innerText = currentInput;
+    }
+
+    function clearDisplay() {
+    currentInput = "";
+    display.innerText = "0";
+    }
+
+    function convertCurrency() {
+    const from = document.getElementById("fromCurrency").value;
+    const to = document.getElementById("toCurrency").value;
+    const amount = parseFloat(currentInput);
+
+    const fromRate = exchangeArray.find(c => c.name === from).value;
+    const toRate = exchangeArray.find(c => c.name === to).value;
+
+    const result = (amount / fromRate) * toRate;
+    document.getElementById("result").innerText = `Result: ${result.toFixed(2)} ${to}`;
+    }
+
+    populateDropdowns();
     </script>
 </body>
 </html>
