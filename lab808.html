@@ -7,11 +7,13 @@
 </head>
 <body>
     <script>
-        function Solution(n) {
-    for (let k = 1; k <= n; k++) {
-        let remaining = n - k;
-        let petyaTurn = false; 
-        let currentPlayerTakes;
+    var n = document.writeln("Number of coins on the table");
+    var result = -1;
+
+    for (var k = 1; k <= n; k++) {
+        var remaining = n - k;
+        var petyaTurn = false;
+        var currentPlayerTakes;
 
         while (remaining > 0) {
             currentPlayerTakes = Math.min(k + 1, remaining);
@@ -20,17 +22,15 @@
         }
 
         if (petyaTurn) {
-            return k;
+            result = k;
+            break;
         }
     }
-    return 0;
+    if (result !== -1) {
+        document.writeln("Petya should take", result, "coins first to guarantee a win.");
+    } else {
+        document.writeln("No winning move found for Petya.");
     }
-
-    let n;
-    n = window.prompt("Number of coins on the table:");
-    let result = Solution(n);
-    document.writeln("Petya should take ", result, " coins first to guarantee a win.");
-
-    </script>
+</script>
 </body>
 </html>
